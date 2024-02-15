@@ -2,9 +2,7 @@ import React, { useState } from "react";
 
 export default function Sort() {
   const [open, setOpen] = useState(false);
-
   const [sortTitle, setSortTitle] = useState(0);
-
   const sortTtiles = ["популярности", "цене", "алфавиту"];
 
   function addSortTitleHandler(index) {
