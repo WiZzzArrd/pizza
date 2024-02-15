@@ -1,33 +1,44 @@
 import React, { useState } from "react";
 
-export default function Pizza() {
-  const [count, setCount] = useState(0);
-
-  function addCountHandler() {
-    setCount((prevState) => prevState + 1);
-  }
+export default function Pizza(props) {
+  const typesName = ["тонкая", "традиционная"];
+  const [activeType, setActiveType] = useState(0);
+  const [activeSize, setActiveSize] = useState(0);
 
   return (
     <div className='pizza-block'>
-      <img
-        className='pizza-block__image'
-        src='https://dodopizza-a.akamaihd.net/static/Img/Products/Pizza/ru-RU/b750f576-4a83-48e6-a283-5a8efb68c35d.jpg'
-        alt='Pizza'
-      />
-      <h4 className='pizza-block__title'> Чизбургер-пицца</h4>
+      <img className='pizza-block__image' src={props.imageUrl} alt='Pizza' />
+      <h4 className='pizza-block__title'> {props.title}</h4>
       <div className='pizza-block__selector'>
         <ul>
-          <li className='active'>тонкое</li>
-          <li>традиционное</li>
+          {props.types.map((typeId) => {
+            return (
+              <li
+                onClick={() => setActiveType(typeId)}
+                className={activeType === typeId ? "active" : ""}
+                key={typeId}
+              >
+                {typesName[typeId]}
+              </li>
+            );
+          })}
         </ul>
         <ul>
-          <li className='active'>26 см.</li>
-          <li>30 см.</li>
-          <li>40 см.</li>
+          {props.sizes.map((size, index) => {
+            return (
+              <li
+                onClick={() => setActiveSize(index)}
+                className={index === activeSize ? "active" : ""}
+                key={size}
+              >
+                {size} см.
+              </li>
+            );
+          })}
         </ul>
       </div>
       <div className='pizza-block__bottom'>
-        <div className='pizza-block__price'>от 395 ₽</div>
+        <div className='pizza-block__price'>от {props.price} ₽</div>
         <div className='button button--outline button--add'>
           <svg
             width='12'
@@ -41,8 +52,8 @@ export default function Pizza() {
               fill='white'
             />
           </svg>
-          <span onClick={addCountHandler}>Добавить</span>
-          <i>{count}</i>
+          <span>Добавить</span>
+          <i>{0}</i>
         </div>
       </div>
     </div>
