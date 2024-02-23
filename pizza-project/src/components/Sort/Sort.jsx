@@ -1,12 +1,18 @@
 import React, { useState } from "react";
 
-export default function Sort() {
+export default function Sort({ sortType, setSortType }) {
   const [open, setOpen] = useState(false);
-  const [sortTitle, setSortTitle] = useState(0);
-  const sortTtiles = ["популярности", "цене", "алфавиту"];
+  const sortTtitles = [
+    { title: "популярности (DESC)", sortTitle: "rating" },
+    { title: "популярности (ASC)", sortTitle: "-rating" },
+    { title: "цене (DESC)", sortTitle: "price" },
+    { title: "цене (ASC)", sortTitle: "-price" },
+    { title: "алфавиту (DESC)", sortTitle: "title" },
+    { title: "алфавиту (ASC)", sortTitle: "-title" },
+  ];
 
-  function addSortTitleHandler(index) {
-    setSortTitle(index);
+  function addSortTitleHandler(obj) {
+    setSortType(obj);
     setOpen(false);
   }
 
@@ -26,20 +32,20 @@ export default function Sort() {
           />
         </svg>
         <b>Сортировка по:</b>
-        <span onClick={() => setOpen(!open)}>{sortTtiles[sortTitle]}</span>
+        <span onClick={() => setOpen(!open)}>{sortType.title}</span>
       </div>
 
       {open && (
         <div className='sort__popup'>
           <ul>
-            {sortTtiles.map((title, index) => {
+            {sortTtitles.map((obj) => {
               return (
                 <li
-                  className={sortTitle === index ? "active" : ""}
-                  onClick={() => addSortTitleHandler(index)}
-                  key={title}
+                  className={sortType.title === obj.title ? "active" : ""}
+                  onClick={() => addSortTitleHandler(obj)}
+                  key={obj.sortTitle}
                 >
-                  {title}
+                  {obj.title}
                 </li>
               );
             })}

@@ -1,0 +1,14 @@
+.warning {
+  display: flex;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 30px;
+  flex-direction: column;
+  align-items: center;
+}
+
+.warning p:first-child {
+  font-style: italic;
+  font-size: 64px;
+  text-shadow: 5px 1px 2px rgb(255, 99, 99);
+}

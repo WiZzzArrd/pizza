@@ -10,7 +10,7 @@ export default function Catalog(props) {
             return <MyLoader key={index}></MyLoader>;
           })
         : props.pizzas.map((item) => {
-            return <Pizza {...item}></Pizza>;
+            return <Pizza key={item.title} {...item}></Pizza>;
           })}
     </div>
   );

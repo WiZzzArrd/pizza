@@ -1,5 +1,6 @@
 import React from "react";
 import logo from "../../assets/pizza-logo.svg";
+import { NavLink } from "react-router-dom";
 
 export default function Header() {
   return (
@@ -13,7 +14,7 @@ export default function Header() {
           </div>
         </div>
         <div className='header__cart'>
-          <a href='/cart.html' className='button button--cart'>
+          <NavLink to='/cart' className='button button--cart'>
             <span>520 ₽</span>
             <div className='button__delimiter'></div>
             <svg
@@ -46,7 +47,7 @@ export default function Header() {
               />
             </svg>
             <span>3</span>
-          </a>
+          </NavLink>
         </div>
       </div>
     </div>
