@@ -1,8 +1,9 @@
 import React from "react";
 import logo from "../../assets/pizza-logo.svg";
 import { NavLink } from "react-router-dom";
+import Search from "../Search/Search";
 
-export default function Header() {
+export default function Header({ searchValue, setSearchValue }) {
   return (
     <div className='header'>
       <div className='container'>
@@ -12,6 +13,12 @@ export default function Header() {
             <h1>React Pizza</h1>
             <p>самая вкусная пицца во вселенной</p>
           </div>
+        </div>
+        <div className='header__search'>
+          <Search
+            searchValue={searchValue}
+            setSearchValue={setSearchValue}
+          ></Search>
         </div>
         <div className='header__cart'>
           <NavLink to='/cart' className='button button--cart'>
