@@ -1,21 +1,20 @@
-import React, { useContext, useEffect, useState } from "react";
+import React from "react";
 import Categories from "../../components/Categories/Categories";
 import Sort from "../../components/Sort/Sort";
 import Catalog from "../../components/Catalog/Catalog";
 import Pagination from "../../components/Pagination/Pagination";
 import { SearchContext } from "../../context/context";
 import { useSelector, useDispatch } from "react-redux";
-import { setCategoryId } from "../../redux/slices/filterSlice";
+import { setCategoryId, setPage } from "../../redux/slices/filterSlice";
+import axios from "axios";
 
-export default function Home({ selectedPage, setSelectedPage }) {
-  const [pizzas, setPizzas] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [sortType, setSortType] = useState({
-    title: "популярности (DESC)",
-    sortTitle: "rating",
-  });
+export default function Home() {
+  const [pizzas, setPizzas] = React.useState([]);
+  const [isLoading, setIsLoading] = React.useState(false);
 
-  const categoryId = useSelector((state) => state.filter.categoryId);
+  const filter = useSelector((state) => state.filter);
+
+  const { searchValue } = React.useContext(SearchContext);
 
   const dispatch = useDispatch();
 
@@ -23,48 +22,39 @@ export default function Home({ selectedPage, setSelectedPage }) {
     dispatch(setCategoryId(id));
   }
 
-  const searchValue = useContext(SearchContext);
-
-  let sortBy = sortType.sortTitle.replace("-", "");
-  let order = sortType.sortTitle.includes("-") ? "asc" : "desc";
-  let search = searchValue.length > 0 ? `&search=${searchValue}` : "";
-  let category = categoryId === 0 ? "" : `&category=${categoryId}`;
-  let page = `&page=${selectedPage}`;
-
   function onPageChanged(props) {
-    setSelectedPage(props.selected + 1);
+    dispatch(setPage(props.selected + 1));
   }
 
-  useEffect(() => {
+  let sortBy = filter.sort.sortTitle.replace("-", "");
+  let order = filter.sort.sortTitle.includes("-") ? "asc" : "desc";
+  let search = searchValue.length > 0 ? `&search=${searchValue}` : "";
+  let category =
+    filter.categoryId === 0 ? "" : `&category=${filter.categoryId}`;
+  let page = `&page=${filter.pageCount}`;
+
+  React.useEffect(() => {
     setIsLoading(true);
 
-    fetch(
-      `https://65ce231ac715428e8b400b24.mockapi.io/items?${category}&sortBy=${sortBy}&order=${order}${search}${page}&limit=4`
-    )
-      .then((data) => {
-        return data.json();
-      })
-      .then((data) => {
-        setPizzas(data);
-      })
-      .finally(() => {
-        setIsLoading(false);
-      })
-      .catch(() => {
-        console.log("error");
-      });
+    axios
+      .get(
+        `https://65ce231ac715428e8b400b24.mockapi.io/items?${category}&sortBy=${sortBy}&order=${order}${search}${page}&limit=4`
+      )
+      .then(({ data } = data) => setPizzas(data))
+      .finally(() => setIsLoading(false))
+      .catch(() => console.log("error"));
 
     window.scrollTo(0, 0);
-  }, [categoryId, sortType.sortTitle, searchValue, selectedPage]);
+  }, [filter.categoryId, filter.sort.title, searchValue, filter.pageCount]);
 
   return (
     <>
       <div className='content__top'>
         <Categories
-          categoryId={categoryId}
+          categoryId={filter.categoryId}
           setCategoryId={onChangeCategoryId}
         ></Categories>
-        <Sort sortType={sortType} setSortType={setSortType}></Sort>
+        <Sort></Sort>
       </div>
       <h2 className='content__title'>Все пиццы</h2>
       <Catalog isLoading={isLoading} pizzas={pizzas}></Catalog>

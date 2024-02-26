@@ -10,7 +10,6 @@ import { useDispatch, useSelector } from "react-redux";
 
 function App() {
   const [searchValue, setSearchValue] = useState("");
-  const [selectedPage, setSelectedPage] = useState(1);
 
   const value = useSelector((store) => store.filter.value);
   const dispatch = useDispatch();
@@ -25,13 +24,7 @@ function App() {
             <Routes>
               <Route
                 path='/'
-                element={
-                  <Home
-                    searchValue={searchValue}
-                    selectedPage={selectedPage}
-                    setSelectedPage={setSelectedPage}
-                  ></Home>
-                }
+                element={<Home searchValue={searchValue}></Home>}
               ></Route>
               <Route path='/cart' element={<Cart></Cart>}></Route>
               <Route path='*' element={<NotFound></NotFound>}></Route>
