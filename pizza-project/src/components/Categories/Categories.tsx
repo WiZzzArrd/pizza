@@ -1,10 +1,14 @@
 import React from "react";
 
-export default function Categories({ categoryId, setCategoryId }) {
-  const onClickCategory = (index) => {
-    setCategoryId(index);
-  };
+type CategoriesProps = {
+  categoryId: number;
+  setCategoryId: any;
+};
 
+const Categories: React.FC<CategoriesProps> = ({
+  categoryId,
+  setCategoryId,
+}) => {
   const categoriesTitle = [
     "Все",
     "Мясные",
@@ -13,6 +17,10 @@ export default function Categories({ categoryId, setCategoryId }) {
     "Острые",
     "Закрытые",
   ];
+
+  const onClickCategory = (index: number) => {
+    setCategoryId(index);
+  };
 
   return (
     <div className='categories'>
@@ -31,4 +39,6 @@ export default function Categories({ categoryId, setCategoryId }) {
       </ul>
     </div>
   );
-}
+};
+
+export default Categories;

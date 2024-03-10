@@ -2,29 +2,34 @@ import React from "react";
 import style from "./search.module.scss";
 import search from "../../assets/search.jpg";
 import krest from "../../assets/krest.png";
-import { SearchContext } from "../../context/context.js";
 import debounce from "lodash.debounce";
+import { useDispatch } from "react-redux";
+import { setSearchValue } from "../../redux/slices/filterSlice";
 
-export default function Search() {
-  const { setSearchValue } = React.useContext(SearchContext);
+const Search: React.FC = () => {
   const [value, setValue] = React.useState("");
+
+  const dispatch = useDispatch();
 
   const updateSearchValue = React.useCallback(
     debounce((str) => {
-      setSearchValue(str);
-    }, 200),
+      dispatch(setSearchValue(str));
+    }, 250),
     []
   );
 
-  const inputRef = React.useRef();
+  const inputRef = React.useRef<HTMLInputElement>(null);
 
   function resetValueHandler() {
     setValue("");
-    setSearchValue("");
-    inputRef.current.focus();
+    dispatch(setSearchValue(""));
+
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
   }
 
-  function onChangeInputHandler(e) {
+  function onChangeInputHandler(e: any) {
     setValue(e.target.value);
     updateSearchValue(e.target.value);
   }
@@ -48,4 +53,6 @@ export default function Search() {
       )}
     </div>
   );
-}
+};
+
+export default Search;

@@ -36,6 +36,21 @@ body {
     margin-bottom: 40px;
   }
 
+  &__error {
+    margin: 60px auto;
+    width: 580px;
+    text-align: center;
+
+    h2 {
+      font-size: 28px;
+      font-weight: 700;
+    }
+
+    p {
+      font-size: 20px;
+    }
+  }
+
   &__items {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
