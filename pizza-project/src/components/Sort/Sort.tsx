@@ -19,7 +19,7 @@ export const sortTtitles: SortItem[] = [
   { title: "алфавиту (ASC)", sortTitle: "-title" },
 ];
 
-export default function Sort() {
+const Sort: React.FC = () => {
   const [open, setOpen] = useState(false);
   const sortRef = React.useRef<HTMLDivElement>(null);
   const sort = useSelector(filterSortSelector);
@@ -31,7 +31,7 @@ export default function Sort() {
   }
 
   React.useEffect(() => {
-    const onClickHandler = (e: any) => {
+    const onClickHandler = (e: React.MouseEvent<HTMLBodyElement>) => {
       const arrOfElements = e.composedPath();
 
       if (!arrOfElements.includes(sortRef.current)) {
@@ -84,4 +84,6 @@ export default function Sort() {
       )}
     </div>
   );
-}
+};
+
+export default Sort;

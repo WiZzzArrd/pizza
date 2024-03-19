@@ -7,9 +7,7 @@ const Catalog: React.FC = (props) => {
     return <MyLoader key={index}></MyLoader>;
   });
 
-  const pizzas = props.pizzas.map((item) => {
-    return <Pizza key={item.title} {...item}></Pizza>;
-  });
+  let pizzas = [];
 
   if (props.isLoading === "error") {
     return (
@@ -18,13 +16,17 @@ const Catalog: React.FC = (props) => {
         <p>К сожалению, при загрзке пицц произошла ошибка...</p>
       </div>
     );
+  } else if (props.isLoading == "loading") {
+    pizzas = sceleton;
+  } else if (props.isLoading != "loading" && props.pizzas.length === 0) {
+    return <h3>Ничего не найдено...</h3>;
+  } else {
+    pizzas = props.pizzas.map((item) => {
+      return <Pizza key={item.title} {...item}></Pizza>;
+    });
   }
 
-  return (
-    <div className='content__items'>
-      {props.isLoading === "loading" ? sceleton : pizzas}
-    </div>
-  );
+  return <div className='content__items'>{pizzas}</div>;
 };
 
 export default Catalog;

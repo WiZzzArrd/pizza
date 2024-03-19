@@ -29,7 +29,7 @@ const Search: React.FC = () => {
     }
   }
 
-  function onChangeInputHandler(e: any) {
+  function onChangeInputHandler(e: React.ChangeEvent<HTMLInputElement>) {
     setValue(e.target.value);
     updateSearchValue(e.target.value);
   }

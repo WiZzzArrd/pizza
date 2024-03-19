@@ -1,10 +1,11 @@
 import React from "react";
 import empty from "../../assets/empty-cart.png";
 import { NavLink } from "react-router-dom";
+import style from "./cartempty.module.scss";
 
 const CartEmpty: React.FC = () => {
   return (
-    <div className='cart cart--empty'>
+    <div className={`cart cart--empty ${style.cartWrap}`}>
       <h2>
         Корзина пустая <span>😕</span>
       </h2>

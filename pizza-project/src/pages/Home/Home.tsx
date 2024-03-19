@@ -3,7 +3,7 @@ import Categories from "../../components/Categories/Categories";
 import Sort, { sortTtitles } from "../../components/Sort/Sort";
 import Catalog from "../../components/Catalog/Catalog";
 import Pagination from "../../components/Pagination/Pagination";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import {
   setCategoryId,
   setPage,
@@ -13,31 +13,32 @@ import {
 import qs from "qs";
 import { useNavigate } from "react-router-dom";
 import { getPizzas, pizzaSelector } from "../../redux/slices/pizzasSlice";
+import { useAppDispatch } from "../../redux/store";
 
 const Home: React.FC = () => {
   const isSearch = React.useRef(false);
   const filter = useSelector(filterSelector);
   const pizzas = useSelector(pizzaSelector);
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  function onChangeCategoryId(id: number) {
+  const onChangeCategoryId = React.useCallback((id: number) => {
     dispatch(setCategoryId(id));
-  }
+  }, []);
 
-  function onPageChanged(props) {
+  function onPageChanged(props: { selected: number }) {
     dispatch(setPage(props.selected + 1));
   }
 
   async function fetchPizzas() {
     const sortBy = filter.sort.sortTitle.replace("-", "");
     const order = filter.sort.sortTitle.includes("-") ? "asc" : "desc";
-    let search =
+    const search =
       filter.searchValue.length > 0 ? `&search=${filter.searchValue}` : "";
-    let category =
+    const category =
       filter.categoryId === 0 ? "" : `&category=${filter.categoryId}`;
-    let page = `&page=${filter.pageCount}`;
+    const page = `&page=${filter.pageCount}`;
 
     dispatch(getPizzas({ category, sortBy, order, search, page }));
   }

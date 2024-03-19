@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addItem } from "../../../redux/slices/cartSlice";
+import { CartItem, addItem } from "../../../redux/slices/cartSlice";
 import { getPizzaByIdSelector } from "../../../redux/slices/pizzasSlice";
 import { Link } from "react-router-dom";
 
@@ -27,13 +27,14 @@ const Pizza: React.FC<PizzaProps> = (props) => {
   const addedCount = cartItem ? cartItem.count : 0;
 
   const addHandler = () => {
-    const item = {
+    const item: CartItem = {
       id: props.id,
       title: props.title,
       price: props.price,
       imageUrl: props.imageUrl,
       type: typesName[activeType],
       size: sizesName[activeSize],
+      count: 0,
     };
 
     dispatch(addItem(item));

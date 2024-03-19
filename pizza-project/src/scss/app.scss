@@ -114,6 +114,14 @@ body {
     align-items: center;
   }
 
+  &__item-count-minus--disabled {
+    opacity: 0.4;
+
+    &:active {
+      transform: none;
+    }
+  }
+
   .content__title {
     display: flex;
     align-items: center;
