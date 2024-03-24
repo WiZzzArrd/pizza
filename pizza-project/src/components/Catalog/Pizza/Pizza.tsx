@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { CartItem, addItem } from "../../../redux/slices/cartSlice";
 import { getPizzaByIdSelector } from "../../../redux/slices/pizzasSlice";
 import { Link } from "react-router-dom";
+import pizzaImg from "../../../assets/pizza.webp";
 
 type PizzaProps = {
   id: string;
@@ -43,7 +44,7 @@ const Pizza: React.FC<PizzaProps> = (props) => {
   return (
     <div className='pizza-block'>
       <Link to={`/pizza/${props.id}`}>
-        <img className='pizza-block__image' src={props.imageUrl} alt='Pizza' />
+        <img className='pizza-block__image' src={pizzaImg} alt='Pizza' />
       </Link>
       <h4 className='pizza-block__title'> {props.title}</h4>
       <div className='pizza-block__selector'>

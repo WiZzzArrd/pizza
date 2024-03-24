@@ -1,8 +1,15 @@
 import React from "react";
 import Pizza from "./Pizza/Pizza";
-import MyLoader from "../../UI/Loader/MyLoader";
 
-const Catalog: React.FC = (props) => {
+import MyLoader from "../../UI/Loader/MyLoader";
+import { CartItem } from "../../redux/slices/cartSlice";
+
+type CatalogType = {
+  isLoading: string;
+  pizzas: CartItem[];
+};
+
+const Catalog: React.FC<CatalogType> = (props) => {
   const sceleton = [...new Array(6)].map((_, index) => {
     return <MyLoader key={index}></MyLoader>;
   });

@@ -3,6 +3,7 @@ import React from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import style from "./fullpizza.module.scss";
 import { Link } from "react-router-dom";
+import pizzaImg from "../../assets/pizza.webp";
 
 const FullPizza: React.FC = () => {
   const params = useParams();
@@ -38,7 +39,7 @@ const FullPizza: React.FC = () => {
   return (
     <div className='container'>
       <div className={style.pizza}>
-        <img src={pizza.imageUrl} alt='' />
+        <img src={pizzaImg} alt='' />
         <h2>{pizza.title}</h2>
         <p>{pizza.price} ₽</p>
         <Link className={style.btn} to='/'>

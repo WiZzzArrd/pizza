@@ -11,12 +11,12 @@ const initialState: CartSliceState = {
 
 export type CartItem = {
   id: string;
-  title: string;
-  price: number;
-  imageUrl: string;
-  type: string;
-  size: number;
-  count: number;
+  title?: string;
+  price?: number;
+  imageUrl?: string;
+  type?: string;
+  size?: number;
+  count?: number;
 };
 
 interface CartSliceState {

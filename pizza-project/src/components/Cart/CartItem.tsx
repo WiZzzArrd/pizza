@@ -1,15 +1,16 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { addItem, minusItem, removeItem } from "../../redux/slices/cartSlice";
+import pizzaImg from "../../assets/pizza.webp";
 
 type CartItemProps = {
   id: string;
-  title: string;
-  count: number;
-  imageUrl: string;
-  price: number;
-  size: number;
-  type: string;
+  title?: string;
+  count?: number;
+  imageUrl?: string;
+  price?: number;
+  size?: number;
+  type?: string;
 };
 
 const CartItem: React.FC<CartItemProps> = (props) => {
@@ -32,7 +33,7 @@ const CartItem: React.FC<CartItemProps> = (props) => {
   return (
     <div className='cart__item'>
       <div className='cart__item-img'>
-        <img className='pizza-block__image' src={props.imageUrl} alt='Pizza' />
+        <img className='pizza-block__image' src={pizzaImg} alt='Pizza' />
       </div>
       <div className='cart__item-info'>
         <h3>{props.title}</h3>
